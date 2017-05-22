@@ -1,0 +1,68 @@
+﻿Dans la Machine Virtuelle BIS (récupération des Tweets dans Mongo DB):
+
+Fichier conf : /usr/lib/apache-flume-1.6.0-bin/conf/flumemongo.conf
+
+Commande pour récupérer les tweets (se placer dans le répertoire /usr/lib/apache-flume-1.6.0-bin/)
+
+./bin/flume-ng agent -n agent --conf /usr/lib/apache-flume-1.6.0-bin/conf -f /usr/lib/apache-flume-1.6.0-bin/conf/flumemong.conf -Dflume.root.logger=DEBUG,console
+
+
+Dans la Machine Virtuelle Initiale:
+
+(pré-requis Version MongoDB >= 3.2)
+
+1. Connection à MONGODB 127.0.0.1:27017 , db : twitter , collection : tweets
+
+LINUX > pyspark --master local --packages org.mongodb.spark:mongo-spark-connector_2.10:1.1.0 --conf "spark.mongodb.input.uri=mongodb://127.0.0.1/twitter.tweets?readPreference=primaryPreferred" --conf "spark.mongodb.output.uri=mongodb://127.0.0.1/twitter.tweets"
+
+2. Loader les collections dans pyspark
+
+Dans pyspark >  
+from pyspark.sql import SQLContext
+sqlContext =SQLContext(sc)
+df = sqlContext.read.format("com.mongodb.spark.sql.DefaultSource").load()
+df.printSchema()
+df.registerTempTable("tweets")
+result_data=sqlContext.sql("SELECT * from tweets limit 10")
+result_data.show()
+
+3.Créer des RDD de dataframe avec les informations à exploter (text et hashtags)
+
+rdd2=df.map(lambda r:[r.text,r.entities.hashtags])
+
+4. Importer les librairies TextBlob
+
+from textblob_fr import PatternTagger, PatternAnalyzer
+from textblob import TextBlob
+from textblob import Blobber
+
+
+5.Créer un objet textblob à appeler à chaque fois avec le texte
+
+tb =Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
+
+6. Faire ses analyses de sentiment une à une
+
+blob2 = tb(u"Quelle belle matinée")
+blob2.sentiment
+
+#(0.8, 0.8)
+
+7. Créer une RDD de TextBlob reprenant le texte des tweets, créer une boucle for pour afficher les sentiments
+
+rdd3=rdd2.map(lambda x:tb(x[0]))
+rdd_texttb=rdd3.collect()    #rdd_texttb est une liste
+for i in rdd_texttb:
+    i.sentiment
+    print(i,i.sentiment)
+
+
+
+
+
+
+
+
+
+
+
