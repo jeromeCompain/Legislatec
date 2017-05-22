@@ -7,9 +7,11 @@ Commande pour récupérer les tweets (se placer dans le répertoire /usr/lib/apa
 ./bin/flume-ng agent -n agent --conf /usr/lib/apache-flume-1.6.0-bin/conf -f /usr/lib/apache-flume-1.6.0-bin/conf/flumemong.conf -Dflume.root.logger=DEBUG,console
 
 
+
+
 Dans la Machine Virtuelle Initiale:
 
-(pré-requis Version MongoDB >= 3.2)
+(pré-requis Version MongoDB >= 3.2, suivre tuto : "https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-red-hat/" , fichier .repo  dans le dossier)
 
 1. Connection à MONGODB 127.0.0.1:27017 , db : twitter , collection : tweets
 
@@ -30,7 +32,7 @@ result_data.show()
 
 rdd2=df.map(lambda r:[r.text,r.entities.hashtags])
 
-4. Importer les librairies TextBlob
+4. Importer les librairies TextBlob (Pré-requis : installer textBlob et textBlog_fr, fichiers compressés dans le dossier. Suivre tuto : "http://textblob.readthedocs.io/en/dev/install.html"   et "https://pypi.python.org/pypi/textblob-fr" , commande linux "python setup.py install" pour installer les lib dans le bon fichier anaconda2 )
 
 from textblob_fr import PatternTagger, PatternAnalyzer
 from textblob import TextBlob
