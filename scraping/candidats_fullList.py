@@ -16,11 +16,11 @@ class liste_candidats_FullList(scrapy.Spider):
     def parse(self,response):
         print("parse")
         output_file=open("/home/cloudera/candidats_FullList.csv",'w')
-        output_file.write("id;Prénom;Nom;sexe;Département;Numéro de département;Numéro de la circonscription\n")
+        output_file.write("id;Prénom;Nom;sexe;Département;circonscription\n")
         output_file.close()
         if response is not None :
             lURL = []
-            for c in range(2,108) : 
+            for c in range(2,108) :  ## verifier si c'est 108 ou 109... 
                 val = response.xpath('//*[@id="listeDpt"]/option[{0}]/@value'.format(c)).extract_first()
                 lURL.append("http://elections.interieur.gouv.fr/legislatives-2017/{0}".format(val))
                 print "detecting page {0}".format(lURL[-1])
@@ -34,11 +34,11 @@ class liste_candidats_FullList(scrapy.Spider):
 
     def parser2(self, response):
         print("parser2")
-        circos=[]
+        lCircos=[]
         for c in response.xpath("//table/*a[@href]"):
-            circos = c.xpath('./@href').extract_first()
+            lCircos.append(c.xpath('./@href').extract_first())
             
-        for (i, page) in enumerate(lURL) :
+        for (i, page) in enumerate(lCircos) :
             yield scrapy.Request(page, callback=self.parser3)
 
     def parser3(self, response):
