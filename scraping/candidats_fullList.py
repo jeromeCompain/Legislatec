@@ -21,7 +21,8 @@ class liste_candidats_FullList(scrapy.Spider):
         if response is not None :
             lURL = []
             for c in range(2,108) : 
-                lURL.append(response.xpath('//*[@id="listeDpt"]/option{0}/@value'.format(c)).extract_first())
+                val = response.xpath('//*[@id="listeDpt"]/option[{0}]/@value'.format(c)).extract_first()
+                lURL.append("http://elections.interieur.gouv.fr/legislatives-2017/{0}".format(val))
                 print "detecting page {0}".format(lURL[-1])
 
 
