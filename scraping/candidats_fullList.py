@@ -10,19 +10,18 @@ class liste_candidats_FullList(scrapy.Spider):
     start_urls=["http://elections.interieur.gouv.fr/legislatives-2017/index.html"]
     
     
-    self.fileName = "/home/cloudera/candidats_FullList.csv"
+#    self.fileName = "/home/cloudera/candidats_FullList.csv"
 
 
     def parse(self,response):
         print("parse")
-        output_file=open(self.fileName,'w')
+        output_file=open("/home/cloudera/candidats_FullList.csv",'w')
         output_file.write("id;Prénom;Nom;sexe;Département;Numéro de département;Numéro de la circonscription\n")
         output_file.close()
         if response is not None :
             lURL = []
             for c in range(2,108) : 
-                response.xpath('//*[@id="listeDpt"]/option{0}'.format(c)):
-                lURL.append(c.xpath("@value").extract_first())
+                lURL.append(response.xpath('//*[@id="listeDpt"]/option{0}/@value'.format(c)).extract_first())
                 print "detecting page {0}".format(lURL[-1])
 
 
@@ -70,6 +69,6 @@ class liste_candidats_FullList(scrapy.Spider):
         for c in candidats : 
             entry = [c["id"], c["prenom"], c["nom"], c["sexe"], c["departement"], c["circonscription"]]
             line = ";".join(entry)+'\n'
-            output_file=open(self.fileName,'a')
+            output_file=open("/home/cloudera/candidats_FullList.csv",'a')
             output_file.write(line)
             output_file.close()
