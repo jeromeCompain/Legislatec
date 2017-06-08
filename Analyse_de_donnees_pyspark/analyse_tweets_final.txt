@@ -1,0 +1,136 @@
+
+#------------------------------------------- Analyse des tweets ------------------------------------
+
+#Input : Base de données Mongo DB nommée twitter , collection nommée tweets
+#Output : 2 fichiers csv , l'un pour les nuances politions, l'autre pour les candidats
+
+# 1. Connection à MONGODB 127.0.0.1:27017 , db : twitter , collection : tweets
+
+LINUX > pyspark --master local --packages org.mongodb.spark:mongo-spark-connector_2.10:1.1.0 --conf "spark.mongodb.input.uri=mongodb://127.0.0.1/twitter.tweets?readPreference=primaryPreferred" --conf "spark.mongodb.output.uri=mongodb://127.0.0.1/twitter.tweets"
+
+# 2. Loader la collection tweets dans pyspark
+
+from pyspark.sql import SQLContext
+sqlContext =SQLContext(sc)
+df = sqlContext.read.format("com.mongodb.spark.sql.DefaultSource").load()
+df.printSchema()
+df.registerTempTable("tweets")
+
+#Toute la collection
+data=sqlContext.sql("SELECT _id,created_at,text,entities.hashtags.text as hashtags from tweets")
+
+#Limité à 1000 tweets
+#data=sqlContext.sql("SELECT _id,created_at,text,entities.hashtags.text as hashtags from tweets limit 1000")
+
+# 3. Import des librairies Textblob 
+
+from textblob_fr import PatternTagger, PatternAnalyzer
+from textblob import TextBlob
+from textblob import Blobber
+import nltk
+tb =Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
+
+
+
+# 3 bis. Modifier 'translate.py' du répertoire \
+# /anaconda2/lib/python2.7/site-packages/textblob-0.12.0-py2.7.egg/textblob/  , la dernière ligne de la méthode suivante:
+'''
+def _validate_translation(self, source, result):
+        """Validate API returned expected schema, and that the translated text
+        is different than the original string.
+        """
+        if not result:
+            raise NotTranslated('Translation API returned and empty response.')
+        if PY2:
+            result = result.encode('utf-8')
+        if result.strip() == source.strip():
+            result =source.encode('utf-8')    '''
+
+
+
+# 4. Construction des RDD
+
+rdd1=data.rdd
+rdd2=rdd1.map(lambda r:[r.text])
+
+# 5. Création des listes de #hastags et de nuances nommées "liste_hashtags" et "liste_nuances" (le fichier est sur GIT, à mettre sur ta VM)
+
+rdd_nuances=sc.textFile("file:///media/sf_Fichiers_partages/Projet/allhash_nuances2.csv")
+rdd_hashtags_nuances=rdd_nuances.map(lambda x:(x.replace(' #','#').replace(' @','@').split(';')))
+rdd_hashtags=rdd_hashtags_nuances.map(lambda x:(x[0]))
+liste_hashtags=rdd_hashtags.collect()
+rdd_nuances=rdd_hashtags_nuances.map(lambda x:(x[1]))
+liste_nuances=rdd_nuances.collect()
+
+# 6. Création du dictionnaire de #hastags - nuances nommée "dico_hash_nuances"
+dico_hash_nuances={}
+i=0
+while i<len(liste_hashtags):
+    dico_hash_nuances[liste_hashtags[i]]=liste_nuances[i]
+    i+=1
+dico_hash_nuances
+
+# 7. Création de 2 fonctions
+
+def retourne_hashtag(texte,liste=liste_hashtags):
+    texte2=texte.upper()
+    listetext=texte2.replace(',',' ').replace('\'',' ').split(' ')
+    liste_ind=[]
+    liste_hash=[]
+    for elt in listetext:
+        if elt in liste:
+            liste_ind.append(liste.index(elt))
+    for i in liste_ind:
+        liste_hash.append(liste[i])
+    return liste_hash
+	
+def retourne_nuance(texte,dico=dico_hash_nuances):
+    liste_nuances2=[]
+    liste_hasht=retourne_hashtag(texte)
+    for elt in liste_hasht:
+        liste_nuances2.append(dico_hash_nuances[elt])
+    return liste_nuances2
+
+
+# 8. Création successives des RDDs
+
+rdd3=rdd2.map(lambda x:(tb(x[0]).translate(to="en"),retourne_hashtag(x[0]),retourne_nuance(x[0])))
+#Le type 'set' élimine les doublons de la liste de nuance
+rdd4=rdd3.map(lambda x:(((x[0].sentiment[0],x[0].sentiment[1]),x[1],set(x[2]))))
+#Filtre sur les nuances, on n'en veut qu'une nuance par tweet
+rdd5_res=rdd4.filter(lambda x:(len(x[2])==1))
+#Renvoie une rdd avec la liste des mots-clés triés (en 1er les candidats, puis les partis. On renvoit le 1er elt)
+rdd6_res=rdd5_res.map(lambda x:(x[0][0],list(reversed(sorted(x[1]))),str(x[2].pop())))\
+.map(lambda x:(x[0],str(x[1][0]),x[2]))
+
+# 9. Création du fichier CANDIDATS ( moyenne des sentiments et compteur de tweets)
+
+#FILTRE SUR LES CANDIDATS
+rdd_cand=rdd6_res.filter(lambda x: x[1][0]!='@' and x[1][0]!='#')
+#RDDPAIR avec key = Candidat
+rdd_kv_cand=rdd_cand.keyBy(lambda x:x[1])
+rdd_kv_cand_1=rdd_kv_cand.mapValues(lambda x:(x[0],1))
+rdd_cand_res=rdd_kv_cand_1.reduceByKey(lambda x,y:(x[0]+y[0],x[1]+y[1]))\
+.mapValues(lambda x: (x[0]/x[1],x[1]))
+
+rdd_cand_res.saveAsText("file:///media/sf_Fichiers_partages/Projet/sentiments_candidats.csv")
+
+
+# 10. Création du fichier NUANCES ( moyenne des sentiments et compteur de tweets)
+
+#RDDPAIR avec key = Nuances
+rdd_kv_nuances=rdd6_res.keyBy(lambda x:x[2])
+rdd_kv_nuances_1=rdd_kv_nuances.mapValues(lambda x:(x[0],1))
+#RDD pair donnant la Nuance , ( sa moyenne des sentiments , son nombre de tweets)
+rdd_nuances_res=rdd_kv_nuances_1.reduceByKey(lambda x,y:(x[0]+y[0],x[1]+y[1]))\
+.mapValues(lambda x: (x[0]/x[1],x[1]))
+
+rdd_nuances_res.saveAsText("file:///media/sf_Fichiers_partages/Projet/sentiments_nuances.csv")
+
+
+
+
+
+
+
+
