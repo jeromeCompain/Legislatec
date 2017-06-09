@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 raw_file=open("candidats_2017.csv","r")
 raw_lines=raw_file.read().splitlines()
 headers=raw_lines[0].split(";")
@@ -146,7 +148,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 	nda2fn=0.08
 	filou2fn=0.03
 
-	 if PCF and LFI and not PS and EELV:
+	if PCF and LFI and not PS and EELV:
 		meluche2ps=0
 		hamon2ps=0
 		lepen2ps=0
@@ -163,7 +165,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		hamon2pcf=0.07
 		macron2pcf=0.009
 
-	if PCF and LFI and not PS and not EELV
+	if PCF and LFI and not PS and not EELV:
 		meluche2ps=0
 		hamon2ps=0
 		lepen2ps=0
@@ -309,7 +311,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		filou2ps=0.078
 		nda2ps=0.065
 
-	if PS and not PCF and not EELV
+	if PS and not PCF and not EELV:
 		meluche2eelv=0
 		hamon2eelv=0
 		lepen2eelv=0
@@ -328,7 +330,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		hamon2ps=0.56
 		macron2ps=0.012
 
-	if LFI not PCF and PS and not EELV
+	if LFI and not PCF and PS and not EELV:
 		meluche2eelv=0
 		hamon2eelv=0
 		lepen2eelv=0
@@ -348,7 +350,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		lepen2lfi=0.03
 		macron2lfi=0.03
 
-	if LFI not PCF and not PS and not EELV and EM
+	if LFI and not PCF and not PS and not EELV and EM:
 		meluche2eelv=0
 		hamon2eelv=0
 		lepen2eelv=0
@@ -375,7 +377,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		lepen2lfi=0.03
 		macron2lfi=0.12
 
-	if LFI and not PCF and not PS and not EELV and not EM
+	if LFI and not PCF and not PS and not EELV and not EM:
 		meluche2eelv=0
 		hamon2eelv=0
 		lepen2eelv=0
@@ -411,7 +413,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		filou2lfi=0.078
 		nda2lfi=0.065
 
-	if LFI and not PCF and PS and not EELV and not EM
+	if LFI and not PCF and PS and not EELV and not EM:
 		meluche2eelv=0
 		hamon2eelv=0
 		lepen2eelv=0
@@ -489,7 +491,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		nda2em=0.192
 		lepen2em=0.024
 
-	if LR and not UDI
+	if LR and not UDI and EM:
 		meluche2udi=0
 		hamon2udi=0
 		lepen2udi=0
@@ -502,7 +504,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		nda2lr=0.23
 		filou2lr=0.63
 
-	if LR and not DLF and FN
+	if LR and not DLF and FN:
 		meluche2dlf=0
 		hamon2dlf=0
 		lepen2dlf=0
@@ -517,7 +519,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		hamon2lr=0.028
 		meluche2lr=0.008
 
-	if UDI and not EM
+	if UDI and not EM:
 		meluche2em=0
 		hamon2em=0
 		lepen2em=0
@@ -532,7 +534,7 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		hamon2udi=0.021
 		meluche2udi=0.006
 
-	if LR and not DLF and not FN
+	if LR and not DLF and not FN:
 		meluche2dlf=0
 		hamon2dlf=0
 		lepen2dlf=0
@@ -552,21 +554,149 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 		nda2lr=0.492
 		filou2lr=0.575
 
+	if LR and not DLF and not UDI and FN:
+		meluche2dlf=0
+		hamon2dlf=0
+		lepen2dlf=0
+		macron2dlf=0
+		nda2dlf=0
+		filou2dlf=0
 
+		meluche2udi=0
+		hamon2udi=0
+		lepen2udi=0
+		macron2udi=0
+		nda2udi=0
+		filou2udi=0
 
+		lepen2lr=0.072
+		macron2lr=0.05
+		nda2lr=0.452
+		filou2lr=0.63
 
+	if LR and not DLF and not UDI and not FN:
+		meluche2dlf=0
+		hamon2dlf=0
+		lepen2dlf=0
+		macron2dlf=0
+		nda2dlf=0
+		filou2dlf=0
 
+		meluche2udi=0
+		hamon2udi=0
+		lepen2udi=0
+		macron2udi=0
+		nda2udi=0
+		filou2udi=0
 
+		meluche2fn=0
+		hamon2fn=0
+		lepen2fn=0
+		macron2fn=0
+		nda2fn=0
+		filou2fn=0
 
+		lepen2lr=0.34
+		macron2lr=0.05
+		nda2lr=0.484
+		filou2lr=0.642
 
+	if LR and not UDI and not EM and DLF:
+		meluche2udi=0
+		hamon2udi=0
+		lepen2udi=0
+		macron2udi=0
+		nda2udi=0
+		filou2udi=0
 
+		meluche2em=0
+		hamon2em=0
+		lepen2em=0
+		macron2em=0
+		nda2em=0
+		filou2em=0
 
+		lepen2lr=0.06
+		macron2lr=0.281
+		nda2lr=0.265
+		filou2lr=0.672
+		hamon2lr=0.049
+		meluche2lr=0.014
 
+	if LR and not UDI and not EM and not DLF:
+		meluche2udi=0
+		hamon2udi=0
+		lepen2udi=0
+		macron2udi=0
+		nda2udi=0
+		filou2udi=0
 
+		meluche2em=0
+		hamon2em=0
+		lepen2em=0
+		macron2em=0
+		nda2em=0
+		filou2em=0
 
+		meluche2dlf=0
+		hamon2dlf=0
+		lepen2dlf=0
+		macron2dlf=0
+		nda2dlf=0
+		filou2dlf=0
 
+		lepen2lr=0.072
+		macron2lr=0.281
+		nda2lr=0.487
+		filou2lr=0.672
+		hamon2lr=0.049
+		meluche2lr=0.014
 
+	if FN and not DLF:
+		meluche2dlf=0
+		hamon2dlf=0
+		lepen2dlf=0
+		macron2dlf=0
+		nda2dlf=0
+		filou2dlf=0
 
-	res_LFI=meluche2lfi*score_meluche+hamon2lfi*score_hamon+macron2lfi*score_macron+lepen2lfi*score_lepen+
+		lepen2fn=0.67
+		nda2fn=0.228
+		filou2fn=0.03
+
+	if FN and not LR and not UDI:
+		meluche2udi=0
+		hamon2udi=0
+		lepen2udi=0
+		macron2udi=0
+		nda2udi=0
+		filou2udi=0
+
+		lepen2lr=0
+		macron2lr=0
+		nda2lr=0
+		filou2lr=0
+		hamon2lr=0
+		meluche2lr=0
+
+		lepen2fn=0.696
+		nda2fn=0.297
+		filou2fn=0.198
+		macron2fn=0.009
+
+	res_LFI=meluche2lfi*score_meluche+hamon2lfi*score_hamon+lepen2lfi*score_lepen+macron2lfi*score_macron+filou2lfi*score_filou+nda2lfi*score_nda
+	res_EM=meluche2em*score_meluche+hamon2em*score_hamon+lepen2em*score_lepen+macron2em*score_macron+filou2em*score_filou+nda2em*score_nda
+	res_FN=meluche2fn*score_meluche+hamon2fn*score_hamon+lepen2fn*score_lepen+macron2fn*score_macron+filou2fn*score_filou+nda2fn*score_nda
+	res_PS=meluche2ps*score_meluche+hamon2ps*score_hamon+lepen2ps*score_lepen+macron2ps*score_macron+filou2ps*score_filou+nda2ps*score_nda
+	res_LR=meluche2lr*score_meluche+hamon2lr*score_hamon+lepen2lr*score_lepen+macron2lr*score_macron+filou2lr*score_filou+nda2lr*score_nda
+	res_UDI=meluche2udi*score_meluche+hamon2udi*score_hamon+lepen2udi*score_lepen+macron2udi*score_macron+filou2udi*score_filou+nda2udi*score_nda
+	res_DLF=meluche2dlf*score_meluche+hamon2dlf*score_hamon+lepen2dlf*score_lepen+macron2dlf*score_macron+filou2dlf*score_filou+nda2dlf*score_nda
+	res_EELV=meluche2eelv*score_meluche+hamon2eelv*score_hamon+lepen2eelv*score_lepen+macron2eelv*score_macron+filou2eelv*score_filou+nda2eelv*score_nda
+	res_PCF=meluche2pcf*score_meluche+hamon2pcf*score_hamon+lepen2pcf*score_lepen+macron2pcf*score_macron+filou2pcf*score_filou+nda2pcf*score_nda
+
+	resultats={"LFI":res_LFI,"PCF":res_PCF,"EELV":res_EELV,"PS":res_PS,"EM":RES_PS,"UDI":res_UDI,"LR":res_LR,"DLF":res_DLF,"FN":res_FN}
+
+	return resultats;
+
 
 	
