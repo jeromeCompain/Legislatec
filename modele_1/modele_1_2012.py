@@ -1405,7 +1405,7 @@ for code in codes_circos :
 	victors[code]["%_Voix/Ins_t2"]=pred_t2[code][victor]["%_Voix/Ins"]
 	victors[code]["%_Voix/Ins_t1"]=pred_t1[code][victor]["%_Voix/Ins"]
 
-clean_csv=open("pred_t2.csv","w")
+clean_csv=open("pred_t2_2012.csv","w")
 clean_csv.write(";".join(clean_headers)+"\n")
 for code in codes_circos :
 #for code in ["75_18"] :
@@ -1417,7 +1417,7 @@ for code in codes_circos :
 clean_csv.close()
 
 
-victors_csv=open("victors.csv","w")
+victors_csv=open("victors_2012.csv","w")
 victors_csv.write("circo;Couleur;Nom;Round;%_Voix/Ins_2nd_tour;%_Voix/Ins_1er_tour\n")
 for code in codes_circos:
 	victors_csv.write(code+";"+victors[code]["Couleur"]+";"
