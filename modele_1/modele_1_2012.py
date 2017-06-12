@@ -929,325 +929,193 @@ def qualification(resultats_circo):
 
 def second_tour (resultats,presents):
 
-	em2em=0
-	fn2em=0
-	lr2em=0
-	udi2em=0
-	lfi2em=0
-	ps2em=0
-	eelv2em=0
-	dlf2em=0
-	pcf2em=0
+	exg2exg=0
+	exg2fg=0
+	exg2ps=0
+	exg2eelv=0
+	exg2modem=0
+	exg2ump=0
+	exg2fn=0
 
-	em2fn=0
-	fn2fn=0
-	lr2fn=0
-	udi2fn=0
-	lfi2fn=0
-	ps2fn=0
-	eelv2fn=0
-	dlf2fn=0
-	pcf2fn=0
+	fg2exg=0
+	fg2fg=0
+	fg2ps=0
+	fg2eelv=0
+	fg2modem=0
+	fg2ump=0
+	fg2fn=0
 
-	em2lr=0
-	fn2lr=0
-	lr2lr=0
-	udi2lr=0
-	lfi2lr=0
-	ps2lr=0
-	eelv2lr=0
-	dlf2lr=0
-	pcf2lr=0
-
-	em2udi=0
-	fn2udi=0
-	lr2udi=0
-	udi2udi=0
-	lfi2udi=0
-	ps2udi=0
-	eelv2udi=0
-	dlf2udi=0
-	pcf2udi=0
-
-	em2lfi=0
-	fn2lfi=0
-	lr2lfi=0
-	udi2lfi=0
-	lfi2lfi=0
-	ps2lfi=0
-	eelv2lfi=0
-	dlf2lfi=0
-	pcf2lfi=0
-
-	em2ps=0
-	fn2ps=0
-	lr2ps=0
-	udi2ps=0
-	lfi2ps=0
+	ps2exg=0
+	ps2fg=0
 	ps2ps=0
-	eelv2ps=0
-	dlf2ps=0
-	pcf2ps=0
-
-	em2eelv=0
-	fn2eelv=0
-	lr2eelv=0
-	udi2eelv=0
-	lfi2eelv=0
 	ps2eelv=0
+	ps2modem=0
+	ps2ump=0
+	ps2fn=0
+
+	eelv2exg=0
+	eelv2fg=0
+	eelv2ps=0
 	eelv2eelv=0
-	dlf2eelv=0
-	pcf2eelv=0
+	eelv2modem=0
+	eelv2ump=0
+	eelv2fn=0
 
-	em2dlf=0
-	fn2dlf=0
-	lr2dlf=0
-	udi2dlf=0
-	lfi2dlf=0
-	ps2dlf=0
-	eelv2dlf=0
-	dlf2dlf=0
-	pcf2dlf=0
+	modem2exg=0
+	modem2fg=0
+	modem2ps=0
+	modem2eelv=0
+	modem2modem=0
+	modem2ump=0
+	modem2fn=0
 
-	em2pcf=0
-	fn2pcf=0
-	lr2pcf=0
-	udi2pcf=0
-	lfi2pcf=0
-	ps2pcf=0
-	eelv2pcf=0
-	dlf2pcf=0
-	pcf2pcf=0
-	if presents==["EM","LR"]:
-		ps2em=0.6
-		eelv2em=0.6
-		lfi2em=0.05
-		pcf2em=0.05
-		fn2lr=0.4
-		dlf2lr=0.75
-		udi2em=0.15
-		udi2lr=0.8
-		em2em=1
-		lr2lr=1
-	elif presents==["EM","FN"]:
-		lr2em=0.55
-		udi2em=0.55
-		ps2em=0.9
-		eelv2em=0.9
-		lfi2em=0.35
-		pcf2em=0.35
-		lr2fn=0.35
-		udi2fn=0.35
-		dlf2fn=0.4
-		lfi2fn=0.05
-		pcf2fn=0.05
-		em2em=1
-		fn2fn=1
-	elif presents==["EM","LFI"]:
-		ps2lfi=0.6
-		eelv2lfi=0.6
-		fn2lfi=0.05
-		pcf2lfi=0.95
-		ps2em=0.35
-		eelv2em=0.35
-		lr2em=0.6
-		udi2em=0.6
-		em2em=1
-		lfi2lfi=1
-	elif presents==["FN","LR"]:
-		em2lr=0.8
-		ps2lr=0.6
-		eelv2lr=0.6
-		dlf2lr=0.4
-		lfi2lr=0.2
-		pcf2lr=0.2
-		dlf2fn=0.4
-		lfi2fn=0.05
-		pcf2fn=0.05
-		udi2lr=0.9
-		lr2lr=1
-		fn2fn=1
-	elif presents==["FN","UDI"]:
-		em2udi=0.8
-		ps2udi=0.6
-		eelv2udi=0.6
-		dlf2udi=0.4
-		lfi2udi=0.2
-		pcf2udi=0.2
-		dlf2fn=0.4
-		lfi2fn=0.05
-		pcf2fn=0.05
-		lr2udi=0.9
-		fn2fn=1
-		udi2udi=1
-	elif presents==["EM","FN","LR"]:
-		ps2em=0.7
-		eelv2em=0.7
-		lfi2em=0.05
-		pcf2em=0.05
-		dlf2lr=0.55
-		dlf2fn=0.35
-		udi2lr=0.8
-		udi2em=0.15
-		em2em=1
-		lr2lr=1
-		fn2fn=1
-	elif presents==["FN","LFI"]:
-		pcf2lfi=0.95
-		ps2lfi=0.95
-		eelv2lfi=0.95
-		em2lfi=0.65
-		dlf2fn=0.5
-		lr2fn=0.35
-		udi2fn=0.35
-		lr2lfi=0.15
-		udi2lfi=0.15
-		fn2fn=1
-		lfi2lfi=1
-	elif presents==["FN","PS"]:
-		pcf2ps=0.95
-		lfi2ps=0.95
+	ump2exg=0
+	ump2fg=0
+	ump2ps=0
+	ump2eelv=0
+	ump2modem=0
+	ump2ump=0
+	ump2fn=0
+
+	fn2exg=0
+	fn2fg=0
+	fn2ps=0
+	fn2eelv=0
+	fn2modem=0
+	fn2ump=0
+	fn2fn=0
+	if presents==["MODEM","PS"]:
+		exg2ps=0.92
+		fg2ps=0.92
+		exg2modem=0.02
+		fg2modem=0.02
+		ps2ps=0.97
+		ps2modem=0.01
+		eelv2ps=0.98
+		modem2modem=0.8
+		modem2ps=0.1
+		ump2ps=0.02
+		ump2modem=0.9
+		fn2ps=0.13
+		fn2modem=0.6
+	elif presents==["EELV","FG","FN","UMP"]:
+		exg2fg=0.92
+		fg2fg=0.92
+		exg2ump=0.02
+		fg2ump=0.02
+		ps2fg=0.4
+		ps2eelv=0.5
+		eelv2eelv=0.98
+		modem2eelv=0.2
+		modem2fg=0.1
+		modem2ump=0.6
+		ump2ump=0.98
+		fn2fn=0.95
+	elif presents==["FG","FN","UMP"]:
+		exg2fg=0.92
+		fg2fg=0.92
+		exg2ump=0.02
+		fg2ump=0.02
+		ps2fg=0.9
+		eelv2fg=0.8
+		modem2fg=0.1
+		modem2ump=0.7
+		ump2ump=0.98
+		fn2fn=0.95
+	elif presents==["FN","PS","UMP"]:
+		exg2ps=0.92
+		fg2ps=0.92
+		exg2ump=0.02
+		fg2ump=0.02
+		ps2ps=0.95
 		eelv2ps=0.95
-		em2ps=0.65
-		dlf2fn=0.5
-		lr2fn=0.35
-		udi2fn=0.35
-		lr2ps=0.15
-		udi2ps=0.15
+		modem2ps=0.3
+		modem2ump=0.5
+		ump2ump=0.98
+		fn2fn=0.95
+	elif presents==["FN","UMP"]:
+		exg2ump=0.5
+		fg2ump=0.6
+		exg2fn=0.02
+		fg2fn=0.02
+		ps2ump=0.7
+		eelv2ump=0.8
+		ump2ump=0.98
+		modem2ump=0.9
 		fn2fn=1
-		ps2ps=1
-	elif presents==["LR","PS"]:
-		eelv2ps=0.9
-		lfi2ps=0.7
-		pcf2ps=0.7
-		em2ps=0.55
-		dlf2lr=0.6
-		fn2lr=0.4
-		em2lr=0.35
-		udi2lr=0.9
-		lr2lr=1
-		ps2ps=1
-	elif presents==["EELV","LR"]:
-		ps2eelv=0.9
-		lfi2eelv=0.7
-		pcf2eelv=0.7
-		em2eelv=0.55
-		dlf2lr=0.6
-		fn2lr=0.4
-		em2lr=0.35
-		udi2lr=0.9
-		lr2lr=1
-		eelv2eelv=1
-	elif presents==["FN","LR","PS"]:
-		em2ps=0.6
-		eelv2ps=0.9
-		lfi2ps=0.7
-		pcf2ps=0.7
-		em2lr=0.35
-		dlf2lr=0.45
-		dlf2fn=0.35
-		udi2lr=0.9
-		lr2lr=1
-		fn2fn=1
-		ps2ps=1
-	elif presents==["EM","FN","LFI"]:
-		ps2lfi=0.5
-		eelv2lfi=0.5
-		ps2em=0.4
-		eelv2em=0.4
-		lr2em=0.5
-		udi2em=0.5
-		lr2fn=0.35
-		udi2fn=0.35
-		dlf2fn=0.4
-		pcf2lfi=0.9
-		em2em=1
-		fn2fn=1
-		lfi2lfi=1
-	elif presents==["LFI","LR","PS"]:
-		pcf2lfi=0.7
-		em2ps=0.5
-		pcf2ps=0.2
-		fn2lr=0.35
-		dlf2lr=0.75
-		em2lr=0.4
-		eelv2lfi=0.3
-		eelv2ps=0.6
-		lr2lr=1
-		lfi2lfi=1
-		ps2ps=1
-	elif presents==["EM","LFI","LR"]:
-		pcf2lfi=0.9
-		ps2lfi=0.5
-		eelv2lfi=0.5
-		ps2em=0.4
-		eelv2em=0.4
-		fn2lr=0.4
-		dlf2lr=0.75
-		em2em=1
-		lr2lr=1
-		lfi2lfi=1
-	elif presents==["LFI","PS"]:
-		fn2lfi=0.05
-		em2ps=0.5
-		lfi2lfi=1
-		ps2ps=1
-	elif presents==["LFI","LR"]:
-		ps2lfi=0.8
-		eelv2lfi=0.8
-		fn2lfi=0.05
-		em2lfi=0.25
-		em2lr=0.5
-		fn2lr=0.35
-		dlf2lr=0.5
-		udi2lr=0.9
-		lr2lr=1
-		lfi2lfi=1
-	elif presents==["LFI","UDI"]:
-		ps2lfi=0.8
-		eelv2lfi=0.8
-		fn2lfi=0.05
-		em2lfi=0.25
-		em2udi=0.5
-		fn2udi=0.35
-		dlf2udi=0.5
-		lr2udi=0.9
-		lfi2lfi=1
-		udi2udi=1
-	elif presents==["LR","UDI"]:
-		em2udi=0.5
-		em2lr=0.2
-		dlf2lr=0.4
-		fn2lr=0.35
-		lr2lr=1
-		udi2udi=1
-	elif presents==["PS","UDI"]:
-		eelv2ps=0.9
-		lfi2ps=0.7
-		pcf2ps=0.7
-		em2ps=0.4
-		dlf2udi=0.2
-		em2udi=0.4
-		lr2udi=0.9
-		udi2udi=1
-		ps2ps=1
-
+	elif presents==["FG","UMP"]:
+		exg2fg=0.92
+		fg2fg=0.92
+		exg2ump=0.02
+		fg2ump=0.02
+		ps2fg=0.8
+		ps2ump=0.01
+		eelv2fg=0.8
+		modem2ump=0.8
+		modem2fg=0.1
+		ump2fg=0.02
+		ump2ump=0.98
+		fn2fg=0.13
+		fn2ump=0.6
+	elif presents==["EELV","FG","UMP"]:
+		exg2fg=0.92
+		fg2fg=0.92
+		exg2ump=0.02
+		fg2ump=0.02
+		ps2fg=0.5
+		ps2eelv=0.4
+		ps2ump=0.01
+		eelv2eelv=0.8
+		modem2ump=0.6
+		modem2eelv=0.1
+		modem2fg=0.1
+		ump2fg=0.02
+		ump2ump=0.98
+		fn2fg=0.13
+		fn2ump=0.6
+	elif presents==["EELV","UMP"]:
+		exg2eelv=0.92
+		fg2eelv=0.92
+		exg2ump=0.02
+		fg2ump=0.02
+		ps2eelv=0.8
+		ps2ump=0.01
+		eelv2eelv=0.8
+		modem2ump=0.7
+		modem2eelv=0.2
+		ump2eelv=0.02
+		ump2ump=0.98
+		fn2eelv=0.13
+		fn2ump=0.6
+	elif presents==["PS","UMP"]:
+		exg2ps=0.92
+		fg2ps=0.92
+		exg2ump=0.02
+		fg2ump=0.02
+		ps2ps=0.9
+		ps2ump=0.01
+		eelv2ps=0.8
+		modem2ump=0.6
+		modem2ps=0.3
+		ump2ps=0.02
+		ump2ump=0.98
+		fn2ps=0.13
+		fn2ump=0.6
 	else:
-		print(presents)
-		return {"LFI":0,"PCF":0,"EELV":0,"PS":0,"EM":0,"UDI":0,"LR":0,"DLF":999999999,"FN":0}
+#		print(presents)
+		return {"EXG":0,"FG":0,"PS":0,"EELV":0,"MODEM":0,"UMP":0,"FN":999999999}
 
 		
-	res_LFI=int(round(lfi2lfi*resultats["LFI"]["voix"]+pcf2lfi*resultats["PCF"]["voix"]+eelv2lfi*resultats["EELV"]["voix"]+ps2lfi*resultats["PS"]["voix"]+em2lfi*resultats["EM"]["voix"]+udi2lfi*resultats["UDI"]["voix"]+lr2lfi*resultats["LR"]["voix"]+dlf2lfi*resultats["DLF"]["voix"]+fn2lfi*resultats["FN"]["voix"]))
-	res_PCF=int(round(lfi2pcf*resultats["LFI"]["voix"]+pcf2pcf*resultats["PCF"]["voix"]+eelv2pcf*resultats["EELV"]["voix"]+ps2pcf*resultats["PS"]["voix"]+em2pcf*resultats["EM"]["voix"]+udi2pcf*resultats["UDI"]["voix"]+lr2pcf*resultats["LR"]["voix"]+dlf2pcf*resultats["DLF"]["voix"]+fn2pcf*resultats["FN"]["voix"]))
-	res_EELV=int(round(lfi2eelv*resultats["LFI"]["voix"]+pcf2eelv*resultats["PCF"]["voix"]+eelv2eelv*resultats["EELV"]["voix"]+ps2eelv*resultats["PS"]["voix"]+em2eelv*resultats["EM"]["voix"]+udi2eelv*resultats["UDI"]["voix"]+lr2eelv*resultats["LR"]["voix"]+dlf2eelv*resultats["DLF"]["voix"]+fn2eelv*resultats["FN"]["voix"]))
-	res_PS=int(round(lfi2ps*resultats["LFI"]["voix"]+pcf2ps*resultats["PCF"]["voix"]+eelv2ps*resultats["EELV"]["voix"]+ps2ps*resultats["PS"]["voix"]+em2ps*resultats["EM"]["voix"]+udi2ps*resultats["UDI"]["voix"]+lr2ps*resultats["LR"]["voix"]+dlf2ps*resultats["DLF"]["voix"]+fn2ps*resultats["FN"]["voix"]))
-	res_EM=int(round(lfi2em*resultats["LFI"]["voix"]+pcf2em*resultats["PCF"]["voix"]+eelv2em*resultats["EELV"]["voix"]+ps2em*resultats["PS"]["voix"]+em2em*resultats["EM"]["voix"]+udi2em*resultats["UDI"]["voix"]+lr2em*resultats["LR"]["voix"]+dlf2em*resultats["DLF"]["voix"]+fn2em*resultats["FN"]["voix"]))
-	res_UDI=int(round(lfi2udi*resultats["LFI"]["voix"]+pcf2udi*resultats["PCF"]["voix"]+eelv2udi*resultats["EELV"]["voix"]+ps2udi*resultats["PS"]["voix"]+em2udi*resultats["EM"]["voix"]+udi2udi*resultats["UDI"]["voix"]+lr2udi*resultats["LR"]["voix"]+dlf2udi*resultats["DLF"]["voix"]+fn2udi*resultats["FN"]["voix"]))
-	res_LR=int(round(lfi2lr*resultats["LFI"]["voix"]+pcf2lr*resultats["PCF"]["voix"]+eelv2lr*resultats["EELV"]["voix"]+ps2lr*resultats["PS"]["voix"]+em2lr*resultats["EM"]["voix"]+udi2lr*resultats["UDI"]["voix"]+lr2lr*resultats["LR"]["voix"]+dlf2lr*resultats["DLF"]["voix"]+fn2lr*resultats["FN"]["voix"]))
-	res_DLF=int(round(lfi2dlf*resultats["LFI"]["voix"]+pcf2dlf*resultats["PCF"]["voix"]+eelv2dlf*resultats["EELV"]["voix"]+ps2dlf*resultats["PS"]["voix"]+em2dlf*resultats["EM"]["voix"]+udi2dlf*resultats["UDI"]["voix"]+lr2dlf*resultats["LR"]["voix"]+dlf2dlf*resultats["DLF"]["voix"]+fn2dlf*resultats["FN"]["voix"]))
-	res_FN=int(round(lfi2fn*resultats["LFI"]["voix"]+pcf2fn*resultats["PCF"]["voix"]+eelv2fn*resultats["EELV"]["voix"]+ps2fn*resultats["PS"]["voix"]+em2fn*resultats["EM"]["voix"]+udi2fn*resultats["UDI"]["voix"]+lr2fn*resultats["LR"]["voix"]+dlf2fn*resultats["DLF"]["voix"]+fn2fn*resultats["FN"]["voix"]))
+	res_EXG=int(round(exg2exg*resultats["EXG"]["voix"]+fg2exg*resultats["FG"]["voix"]+ps2exg*resultats["PS"]["voix"]+eelv2exg*resultats["EELV"]["voix"]+modem2exg*resultats["MODEM"]["voix"]+ump2exg*resultats["UMP"]["voix"]+fn2exg*resultats["FN"]["voix"]))
+	res_FG=int(round(exg2fg*resultats["EXG"]["voix"]+fg2fg*resultats["FG"]["voix"]+ps2fg*resultats["PS"]["voix"]+eelv2fg*resultats["EELV"]["voix"]+modem2fg*resultats["MODEM"]["voix"]+ump2fg*resultats["UMP"]["voix"]+fn2fg*resultats["FN"]["voix"]))
+	res_PS=int(round(exg2ps*resultats["EXG"]["voix"]+fg2ps*resultats["FG"]["voix"]+ps2ps*resultats["PS"]["voix"]+eelv2ps*resultats["EELV"]["voix"]+modem2ps*resultats["MODEM"]["voix"]+ump2ps*resultats["UMP"]["voix"]+fn2ps*resultats["FN"]["voix"]))
+	res_EELV=int(round(exg2eelv*resultats["EXG"]["voix"]+fg2eelv*resultats["FG"]["voix"]+ps2eelv*resultats["PS"]["voix"]+eelv2eelv*resultats["EELV"]["voix"]+modem2eelv*resultats["MODEM"]["voix"]+ump2eelv*resultats["UMP"]["voix"]+fn2eelv*resultats["FN"]["voix"]))
+	res_MODEM=int(round(exg2modem*resultats["EXG"]["voix"]+fg2modem*resultats["FG"]["voix"]+ps2modem*resultats["PS"]["voix"]+eelv2modem*resultats["EELV"]["voix"]+modem2modem*resultats["MODEM"]["voix"]+ump2modem*resultats["UMP"]["voix"]+fn2modem*resultats["FN"]["voix"]))
+	res_UMP=int(round(exg2ump*resultats["EXG"]["voix"]+fg2ump*resultats["FG"]["voix"]+ps2ump*resultats["PS"]["voix"]+eelv2ump*resultats["EELV"]["voix"]+modem2ump*resultats["MODEM"]["voix"]+ump2ump*resultats["UMP"]["voix"]+fn2ump*resultats["FN"]["voix"]))
+	res_FN=int(round(exg2fn*resultats["EXG"]["voix"]+fg2fn*resultats["FG"]["voix"]+ps2fn*resultats["PS"]["voix"]+eelv2fn*resultats["EELV"]["voix"]+modem2fn*resultats["MODEM"]["voix"]+ump2fn*resultats["UMP"]["voix"]+fn2fn*resultats["FN"]["voix"]))
 
-	resultats={"LFI":res_LFI,"PCF":res_PCF,"EELV":res_EELV,"PS":res_PS,"EM":res_EM,"UDI":res_UDI,"LR":res_LR,"DLF":res_DLF,"FN":res_FN}
+
+	resultats={"EXG":res_EXG,"FG":res_FG,"PS":res_PS,"EELV":res_EELV,"MODEM":res_MODEM,"UMP":res_UMP,"FN":res_FN}
 
 	return resultats
 
@@ -1276,7 +1144,7 @@ for line in raw_lines :
 
 raw_file.close()
 
-print(res_pres_t1["75_18"])
+#print(res_pres_t1["75_18"])
 
 candidats_colores_par_circo={}
 for code in codes_circos :
@@ -1344,6 +1212,16 @@ for code in codes_circos :
 		valeurs.extend([pred_t1[code][couleur]["nom"],str(pred_t1[code][couleur]["voix"]),str(pred_t1[code][couleur]["%_Voix/Ins"]),str(pred_t1[code][couleur]["%_Voix/Exp"])])
 	clean_csv.write(";".join(valeurs)+"\n")
 
+clean_csv.close()
+
+clean_headers=["circo","Inscrits","Exprimés","%_Exp/Ins","Couleur","nom","Voix","%_Voix/Ins","%_Voix/Exp"]
+clean_csv=open("pred_t1_2012_portrait.csv","w")
+clean_csv.write(";".join(clean_headers)+"\n")
+for code in codes_circos :
+#for code in ["75_18"] :
+	for couleur in couleurs:
+		valeurs=[code,str(pred_t1[code]["Inscrits"]),str(pred_t1[code]["Exprimés"]),str(pred_t1[code]["%_Exp/Ins"]),couleur,pred_t1[code][couleur]["nom"],str(pred_t1[code][couleur]["voix"]),str(pred_t1[code][couleur]["%_Voix/Ins"]),str(pred_t1[code][couleur]["%_Voix/Exp"])]
+		clean_csv.write(";".join(valeurs)+"\n")
 clean_csv.close()
 
 
