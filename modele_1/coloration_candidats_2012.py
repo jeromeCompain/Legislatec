@@ -35,6 +35,7 @@ for candidat in candidats:
 			candidats_colores_par_circo[candidats[candidat]["Circo"]][couleur].append(candidats[candidat]["Nom"])
 
 #print(candidats_colores_par_circo["75_18"])
+print(candidats_colores_par_circo["1_1"]["UMP"])
 
 for code in codes_circos :
 #	if len(candidats_colores_par_circo[code]["PS"])+len(candidats_colores_par_circo[code]["FG"])+len(candidats_colores_par_circo[code]["EELV"])>1 :
@@ -53,14 +54,20 @@ for code in codes_circos :
 #				candidats_colores_par_circo[code][couleur]=[winner]
 #			else:
 #				candidats_colores_par_circo[code][couleur]=[]
+
 	for couleur in couleurs:
 		if len(candidats_colores_par_circo[code][couleur])>1 :
 			max_score=0
 			winner=""
 			for candidat in candidats_colores_par_circo[code][couleur]:
+				if code=="1_1" and couleur=="UMP":
+					print(candidat+" : "+candidats[candidat+"_"+code]["Voix"])
 				if int(candidats[candidat+"_"+code]["Voix"])>max_score:
 					winner=candidat
-					max_score=candidats[candidat+"_"+code]["Voix"]
+					max_score=int(candidats[candidat+"_"+code]["Voix"])
+				if code=="1_1" and couleur=="UMP":
+					print("max_score="+str(max_score))
+					print("winner="+winner)
 				candidats_colores_par_circo[code][couleur]=[winner]
 
 candidats_colores_par_circo["988_2"]["PS"]=["JEAN-PIERRE DJAIWE"]
