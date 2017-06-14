@@ -1,0 +1,24 @@
+feature_name;feature_description;importance
+voixmodele1;voixmodele1;0.256616944425429
+tweet_nuance_avg;tweet_nuance_avg;0.15945625565434574
+tweet_nuance_count;tweet_nuance_count;0.1370448149961622
+tweet_tag_count;tweet_tag_count;0.11454109574896305
+tweet_tag_avg;tweet_tag_avg;0.1101283840507625
+age_candidat;age_candidat;0.05707059838606005
+chomage_moyen_2012;chomage_moyen_2012;0.04577559057089015
+dummy:csp:3;csp = 3;0.03719492326183865
+dummy:csp:5;csp = 5;0.013649162793274784
+dummy:candidat_sortant:Oui;candidat_sortant = Oui;0.012455400198063477
+age_moy_2012;age_moy_2012;0.009793077301758114
+dummy:personnalité_bool:Oui;personnalité_bool = Oui;0.009490531384472737
+dummy:candidat_sortant:Non;candidat_sortant = Non;0.007436372802603613
+dummy:personnalité_bool:Non;personnalité_bool = Non;0.0069036973168693
+dummy:sexe:F;sexe = F;0.004747523635620017
+dummy:csp:4;csp = 4;0.004681235995684372
+dummy:sexe:M;sexe = M;0.004306261287338533
+dummy:parti_predecesseur2007:Oui;parti_predecesseur2007 = Oui;0.0025315716342351937
+dummy:csp:7;csp = 7;0.0023471905654948613
+dummy:parti_predecesseur2007:Non;parti_predecesseur2007 = Non;0.002183587363851494
+dummy:csp:2;csp = 2;0.0013569823237253866
+dummy:csp:8;csp = 8;1.4856914434933748E-4
+dummy:csp:__Others__;csp is other;1.4022915820743862E-4

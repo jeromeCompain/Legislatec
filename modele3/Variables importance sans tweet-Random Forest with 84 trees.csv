@@ -1,0 +1,19 @@
+feature_name;feature_description;importance
+voixmodele1;voixmodele1;0.5540464879127623
+chomage_moyen_2012;chomage_moyen_2012;0.12804954802936278
+age_candidat;age_candidat;0.115821476782415
+dummy:csp:3;csp = 3;0.08467878203620575
+dummy:csp:5;csp = 5;0.031072098515703455
+dummy:csp:7;csp = 7;0.017360996381350385
+dummy:sexe:M;sexe = M;0.014242955174649
+dummy:sexe:F;sexe = F;0.012702343814907454
+dummy:csp:2;csp = 2;0.00866921125801864
+dummy:parti_predecesseur2007:Oui;parti_predecesseur2007 = Oui;0.00584310723398073
+dummy:candidat_sortant:Non;candidat_sortant = Non;0.005631964035596291
+dummy:csp:4;csp = 4;0.00549339398906241
+dummy:parti_predecesseur2007:Non;parti_predecesseur2007 = Non;0.004715474609580859
+dummy:candidat_sortant:Oui;candidat_sortant = Oui;0.004517306888611643
+dummy:personnalité_bool:Non;personnalité_bool = Non;0.0039563238780645155
+dummy:personnalité_bool:Oui;personnalité_bool = Oui;0.0025132373552766538
+dummy:csp:8;csp = 8;3.601194353469031E-4
+dummy:csp:__Others__;csp is other;3.2517266910520715E-4
