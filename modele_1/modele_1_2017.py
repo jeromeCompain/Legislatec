@@ -745,7 +745,7 @@ for line in raw_lines :
 
 raw_file.close()
 
-#print(candidats_colores_par_circo["75_18"])
+#print(candidats_colores_par_circo["986_1"])
 
 pred_t1={}
 qualifies={}
@@ -758,7 +758,7 @@ for code in codes_circos :
 			presents[couleur]=False
 		else:
 			presents[couleur]=True
-#	if code=="75_18":
+#	if code=="986_1":
 #		print(presents)
 	pred_t1[code]=premier_tour(int(res_pres_t1[code]["macron"]),int(res_pres_t1[code]["le_pen"]),int(res_pres_t1[code]["melenchon"]),int(res_pres_t1[code]["fillon"]),int(res_pres_t1[code]["hamon"]),int(res_pres_t1[code]["dupont-aignan"]),presents["LFI"],presents["PCF"],presents["EELV"],presents["PS"],presents["EM"],presents["UDI"],presents["LR"],presents["DLF"],presents["FN"])
 #	print(pred_t1[code])
@@ -779,13 +779,13 @@ for code in codes_circos :
 	qualifies[code]=qualification(pred_t1[code])
 
 
-#print(pred_t1["75_18"])
+#print(pred_t1["986_1"])
 
 clean_headers=["circo","Inscrits","Exprimés","%_Exp/Ins"]
 for couleur in couleurs:
 	clean_headers.append(couleur)
 	clean_headers.extend(["voix","%_Voix/Ins","%_Voix/Exp"])
-clean_csv=open("pred_t1.csv","w")
+clean_csv=open("pred_t1_2017.csv","w")
 clean_csv.write(";".join(clean_headers)+"\n")
 for code in codes_circos :
 #for code in ["75_18"] :
@@ -794,6 +794,16 @@ for code in codes_circos :
 		valeurs.extend([pred_t1[code][couleur]["nom"],str(pred_t1[code][couleur]["voix"]),str(pred_t1[code][couleur]["%_Voix/Ins"]),str(pred_t1[code][couleur]["%_Voix/Exp"])])
 	clean_csv.write(";".join(valeurs)+"\n")
 
+clean_csv.close()
+
+clean_headers=["circo","Inscrits","Exprimés","%_Exp/Ins","Couleur","nom","Voix","%_Voix/Ins","%_Voix/Exp"]
+clean_csv=open("pred_t1_2017_portrait.csv","w")
+clean_csv.write(";".join(clean_headers)+"\n")
+for code in codes_circos :
+#for code in ["75_18"] :
+	for couleur in couleurs:
+		valeurs=[code,str(pred_t1[code]["Inscrits"]),str(pred_t1[code]["Exprimés"]),str(pred_t1[code]["%_Exp/Ins"]),couleur,pred_t1[code][couleur]["nom"],str(pred_t1[code][couleur]["voix"]),str(pred_t1[code][couleur]["%_Voix/Ins"]),str(pred_t1[code][couleur]["%_Voix/Exp"])]
+		clean_csv.write(";".join(valeurs)+"\n")
 clean_csv.close()
 
 
@@ -864,6 +874,16 @@ for code in codes_circos :
 		valeurs.extend([pred_t2[code][couleur]["nom"],str(pred_t2[code][couleur]["voix"]),str(pred_t2[code][couleur]["%_Voix/Ins"]),str(pred_t2[code][couleur]["%_Voix/Exp"])])
 	clean_csv.write(";".join(valeurs)+"\n")
 
+clean_csv.close()
+
+clean_headers=["circo","Inscrits","Exprimés","%_Exp/Ins","Couleur","nom","Voix","%_Voix/Ins","%_Voix/Exp"]
+clean_csv=open("pred_t2_2017_portrait.csv","w")
+clean_csv.write(";".join(clean_headers)+"\n")
+for code in codes_circos :
+#for code in ["75_18"] :
+	for couleur in couleurs:
+		valeurs=[code,str(pred_t2[code]["Inscrits"]),str(pred_t2[code]["Exprimés"]),str(pred_t2[code]["%_Exp/Ins"]),couleur,pred_t2[code][couleur]["nom"],str(pred_t2[code][couleur]["voix"]),str(pred_t2[code][couleur]["%_Voix/Ins"]),str(pred_t2[code][couleur]["%_Voix/Exp"])]
+		clean_csv.write(";".join(valeurs)+"\n")
 clean_csv.close()
 
 

@@ -59,6 +59,10 @@ candidats_colores_par_circo["971_3"]["PS"]=["Adrien BARON"]
 candidats_colores_par_circo["985_2"]["EM"]=["Jacques HENRY"]
 candidats_colores_par_circo["971_1"]["UDI"]=["Rudy FARO,Jessica COMPPER"]
 candidats_colores_par_circo["971_2"]["UDI"]=["Marie-Jeanne QUINOL,Philibert CARVIGAN"]
+candidats_colores_par_circo["986_1"]["PS"]=["Napole Polutélé"]
+
+#print(candidats_colores_par_circo["986_1"]["EELV"])
+#print(candidats_colores_par_circo["75_18"]["EM"])
 
 surpop_file=open("surpopulation_2017.txt","w")
 
