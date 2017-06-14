@@ -272,11 +272,11 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 
 	if not EELV:
 		meluche2eelv=0
-		hamon2leelv=0
-		lepen2leelv=0
+		hamon2eelv=0
+		lepen2eelv=0
 		macron2eelv=0
-		nda2leelv=0
-		filou2leelv=0
+		nda2eelv=0
+		filou2eelv=0
 
 	if not PCF:
 		meluche2pcf=0
@@ -348,6 +348,10 @@ def premier_tour (score_macron, score_lepen, score_meluche, score_filou, score_h
 	res_LR=int(round(meluche2lr*score_meluche+hamon2lr*score_hamon+lepen2lr*score_lepen+macron2lr*score_macron+filou2lr*score_filou+nda2lr*score_nda))
 	res_UDI=int(round(meluche2udi*score_meluche+hamon2udi*score_hamon+lepen2udi*score_lepen+macron2udi*score_macron+filou2udi*score_filou+nda2udi*score_nda))
 	res_DLF=int(round(meluche2dlf*score_meluche+hamon2dlf*score_hamon+lepen2dlf*score_lepen+macron2dlf*score_macron+filou2dlf*score_filou+nda2dlf*score_nda))
+	total_eelv=meluche2eelv+hamon2eelv+lepen2eelv+macron2eelv+filou2eelv+nda2eelv
+	if not EELV and total_eelv>0:
+		print("NOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!")
+		print([meluche2eelv,hamon2eelv,lepen2eelv,macron2eelv,filou2eelv,nda2eelv])
 	res_EELV=int(round(meluche2eelv*score_meluche+hamon2eelv*score_hamon+lepen2eelv*score_lepen+macron2eelv*score_macron+filou2eelv*score_filou+nda2eelv*score_nda))
 	res_PCF=int(round(meluche2pcf*score_meluche+hamon2pcf*score_hamon+lepen2pcf*score_lepen+macron2pcf*score_macron+filou2pcf*score_filou+nda2pcf*score_nda))
 
