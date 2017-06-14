@@ -1,0 +1,337 @@
+
+R version 3.4.0 (2017-04-21) -- "You Stupid Darkness"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> data <- read.csv2("C:/Users/Fitec/git/Legislatec/modele3/test.csv", dec=".")
+> summary(data)
+                 X.0.0....MLP_OFFICIEL....FN..
+ (0.0, '@FRANCEINSOUMISE', 'FI'): 17512       
+ (0.0, '@MLP_OFFICIEL', 'FN')   : 14334       
+ (0.0, '@ENMARCHEFR', 'REM')    : 13691       
+ (0.0, '#FRANCEINSOUMISE', 'FI'): 11085       
+ (0.0, '#MLP', 'FN')            :  8652       
+ (0.0, '#FN', 'FN')             :  5793       
+ (Other)                        :150819       
+> data$nuance=as.factor(data$nuance)
+Error in `$<-.data.frame`(`*tmp*`, nuance, value = integer(0)) : 
+  replacement has 0 rows, data has 221886
+> boxplot(score ~ nuance, data=data, xlab="nuance", ylab="value")
+Error in eval(predvars, data, env) : object 'score' not found
+> boxplot(value ~ nuance, data=data, xlab="nuance", ylab="value")
+Error in eval(predvars, data, env) : object 'value' not found
+> summary(data)
+                 X.0.0....MLP_OFFICIEL....FN..
+ (0.0, '@FRANCEINSOUMISE', 'FI'): 17512       
+ (0.0, '@MLP_OFFICIEL', 'FN')   : 14334       
+ (0.0, '@ENMARCHEFR', 'REM')    : 13691       
+ (0.0, '#FRANCEINSOUMISE', 'FI'): 11085       
+ (0.0, '#MLP', 'FN')            :  8652       
+ (0.0, '#FN', 'FN')             :  5793       
+ (Other)                        :150819       
+> View(data)
+> data <- read.csv2("C:/Users/Fitec/git/Legislatec/modele3/test2.csv", dec=".")
+> summary(data)
+                value.tag.nuance 
+ 0.0,@FRANCEINSOUMISE,FI: 17512  
+ 0.0,@MLP_OFFICIEL,FN   : 14335  
+ 0.0,@ENMARCHEFR,REM    : 13691  
+ 0.0,#FRANCEINSOUMISE,FI: 11085  
+ 0.0,#MLP,FN            :  8652  
+ 0.0,#FN,FN             :  5793  
+ (Other)                :150819  
+> data <- read.csv2("C:/Users/Fitec/git/Legislatec/modele3/test2.csv", dec=".")
+> summary(data)
+     value                        tag            nuance     
+ Min.   :-1.00000   @FRANCEINSOUMISE:33717   FI     :71423  
+ 1st Qu.: 0.00000   @MLP_OFFICIEL   :29671   FN     :60539  
+ Median : 0.00000   @ENMARCHEFR     :23960   REM    :40879  
+ Mean   : 0.04555   #FRANCEINSOUMISE:17925   SOC    :11160  
+ 3rd Qu.: 0.10000   #FN             :14241   DIV    : 8726  
+ Max.   : 1.00000   #MLP            :10223   LR     : 7806  
+                    (Other)         :92150   (Other):21354  
+> data$nuance=as.factor(data$nuance)
+> boxplot(value ~ nuance, data=data, xlab="nuance", ylab="value")
+> anova <- aov(value ~ nuance, data=data)
+> summary(anova)
+                Df Sum Sq Mean Sq F value Pr(>F)    
+nuance          16     53   3.316   76.13 <2e-16 ***
+Residuals   221870   9662   0.044                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> model=glm(score ~ nuance, data=data)
+Error in eval(predvars, data, env) : object 'score' not found
+> summary(model)
+Error in summary(model) : object 'model' not found
+> model=glm(value ~ nuance, data=data)
+> summary(model)
+
+Call:
+glm(formula = value ~ nuance, data = data)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-1.06759  -0.05767  -0.04087   0.04568   0.98968  
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.022596   0.005624   4.018 5.87e-05 ***
+nuanceDIV    0.016275   0.006051   2.690 0.007155 ** 
+nuanceDLF   -0.001945   0.006787  -0.287 0.774408    
+nuanceDVD    0.094841   0.008997  10.541  < 2e-16 ***
+nuanceDVG    0.037872   0.006267   6.043 1.51e-09 ***
+nuanceECO    0.044992   0.006560   6.858 6.99e-12 ***
+nuanceEXD    0.034131   0.023721   1.439 0.150199    
+nuanceEXG    0.035391   0.007238   4.890 1.01e-06 ***
+nuanceFI     0.035069   0.005678   6.177 6.56e-10 ***
+nuanceFN     0.018275   0.005687   3.213 0.001312 ** 
+nuanceLR    -0.008119   0.006100  -1.331 0.183173    
+nuanceMDM   -0.068274   0.009051  -7.544 4.59e-14 ***
+nuanceRDG   -0.070576   0.018393  -3.837 0.000125 ***
+nuanceREG   -0.011882   0.079075  -0.150 0.880557    
+nuanceREM    0.023344   0.005718   4.083 4.45e-05 ***
+nuanceSOC   -0.012281   0.005961  -2.060 0.039371 *  
+nuanceUDI    0.033583   0.006674   5.032 4.86e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for gaussian family taken to be 0.04354883)
+
+    Null deviance: 9715.2  on 221886  degrees of freedom
+Residual deviance: 9662.2  on 221870  degrees of freedom
+AIC: -65659
+
+Number of Fisher Scoring iterations: 2
+
+> data2 <- read.csv2("C:/Users/Fitec/git/Legislatec/modele3/test2.csv", dec=".")
+> summary(data2)
+     value                        tag            nuance     
+ Min.   :-1.00000   @FRANCEINSOUMISE:33717   FI     :71423  
+ 1st Qu.: 0.00000   @MLP_OFFICIEL   :29671   FN     :60539  
+ Median : 0.00000   @ENMARCHEFR     :23960   REM    :40879  
+ Mean   : 0.04555   #FRANCEINSOUMISE:17925   SOC    :11160  
+ 3rd Qu.: 0.10000   #FN             :14241   DIV    : 8726  
+ Max.   : 1.00000   #MLP            :10223   LR     : 7806  
+                    (Other)         :92150   (Other):21354  
+> data2$tag=as.factor(data2$tag)
+> boxplot(value ~ tag, data=data, xlab="tag", ylab="value")
+> anova <- aov(value ~ tag, data=data)
+> summary(anova)
+                Df Sum Sq Mean Sq F value Pr(>F)    
+tag            178    308  1.7281   40.73 <2e-16 ***
+Residuals   221708   9408  0.0424                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> model=glm(value ~ tag, data=data)
+> summary(model)
+
+Call:
+glm(formula = value ~ tag, data = data)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-1.11469  -0.06464  -0.04270   0.04730   1.10888  
+
+Coefficients:
+                             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                 0.0765629  0.0036849  20.778  < 2e-16 ***
+tag#DLF                    -0.1160479  0.0106389 -10.908  < 2e-16 ***
+tag#EELV                   -0.0046979  0.0058818  -0.799 0.424446    
+tag#EM                     -0.1170739  0.0051826 -22.590  < 2e-16 ***
+tag#FDG                    -0.0478756  0.0148176  -3.231 0.001234 ** 
+tag#FI                     -0.0821261  0.0044030 -18.652  < 2e-16 ***
+tag#FN                     -0.0325725  0.0040692  -8.005 1.20e-15 ***
+tag#FRANCEINSOUMISE        -0.0018112  0.0039932  -0.454 0.650145    
+tag#FREXIT                 -0.0368283  0.0074476  -4.945 7.62e-07 ***
+tag#INSOUMIS                0.0381257  0.0051597   7.389 1.48e-13 ***
+tag#INSOUMIS2017           -0.0145629  0.0652444  -0.223 0.823376    
+tag#LAREPUBLIQUEENMARCHE    0.0018001  0.0043907   0.410 0.681815    
+tag#LEGISLATIVESFI         -0.0049247  0.0050050  -0.984 0.325136    
+tag#LEGISLATIVESINSOUMISES -0.0594827  0.0183040  -3.250 0.001155 ** 
+tag#LR                     -0.0630947  0.0044095 -14.309  < 2e-16 ***
+tag#LRME                   -0.1403129  0.0729222  -1.924 0.054338 .  
+tag#MAJORITEPOURLAFRANCE   -0.0119199  0.0045997  -2.591 0.009557 ** 
+tag#MLP                    -0.0556908  0.0042106 -13.226  < 2e-16 ***
+tag#MODEM                  -0.1276589  0.0081661 -15.633  < 2e-16 ***
+tag#NDA                    -0.0725075  0.0077726  -9.329  < 2e-16 ***
+tag#PARTISOCIALISTE        -0.0783407  0.0268475  -2.918 0.003523 ** 
+tag#PCF                    -0.0612944  0.0073218  -8.371  < 2e-16 ***
+tag#PS                     -0.0834512  0.0043285 -19.280  < 2e-16 ***
+tag#UDI                    -0.0651677  0.0074615  -8.734  < 2e-16 ***
+tag#UPR                    -0.0727233  0.0044422 -16.371  < 2e-16 ***
+tag@DLF_OFFICIEL           -0.0284914  0.0062836  -4.534 5.78e-06 ***
+tag@EELV                   -0.0164096  0.0066900  -2.453 0.014173 *  
+tag@ENMARCHEFR             -0.0338658  0.0039178  -8.644  < 2e-16 ***
+tag@FDG                    -0.0110274  0.0360474  -0.306 0.759669    
+tag@FN                     -0.0062504  0.0516296  -0.121 0.903642    
+tag@FN_OFFICIEL            -0.0259366  0.0045196  -5.739 9.55e-09 ***
+tag@FRANCEINSOUMISE        -0.0222384  0.0038519  -5.773 7.78e-09 ***
+tag@LR                     -0.1835094  0.0254342  -7.215 5.41e-13 ***
+tag@MLP_OFFICIEL           -0.0330657  0.0038741  -8.535  < 2e-16 ***
+tag@UDI_OFF                -0.0012880  0.0056150  -0.229 0.818570    
+tagAESCHLIMANN              0.0704959  0.0500960   1.407 0.159365    
+tagALIX                    -0.0765629  0.1457047  -0.525 0.599260    
+tagAMRANI                   0.0001883  0.0153538   0.012 0.990214    
+tagAVRIL                   -0.0233135  0.0110001  -2.119 0.034059 *  
+tagBACHELAY                -0.0785046  0.0206287  -3.806 0.000142 ***
+tagBAKARY                  -0.0765629  0.2060245  -0.372 0.710176    
+tagBALADI                  -0.0979915  0.0779447  -1.257 0.208685    
+tagBARIGANT                -0.0765629  0.1189864  -0.643 0.519927    
+tagBARON                    0.0777228  0.0779447   0.997 0.318691    
+tagBARROT                  -0.0629149  0.0296572  -2.121 0.033889 *  
+tagBAYLE                   -0.0898962  0.1189864  -0.756 0.449940    
+tagBELLAMY                 -0.2248962  0.0595787  -3.775 0.000160 ***
+tagBERLINGEN               -0.0765629  0.2060245  -0.372 0.710176    
+tagBETTON                   0.0316644  0.0280193   1.130 0.258438    
+tagBIZET                   -0.0765629  0.2060245  -0.372 0.710176    
+tagBOJAN                   -0.1432295  0.1189864  -1.204 0.228688    
+tagBORIE                   -0.4140629  0.0729222  -5.678 1.36e-08 ***
+tagBOUARISSA               -0.0665629  0.1189864  -0.559 0.575878    
+tagBOUQUIN                  0.0193195  0.0500960   0.386 0.699757    
+tagBOUVARD                 -0.2265629  0.0841764  -2.692 0.007113 ** 
+tagBRETON                  -0.0673238  0.0305945  -2.201 0.027771 *  
+tagBRUNET                   0.0111294  0.0572505   0.194 0.845864    
+tagBRUNIE                   0.0454371  0.0921959   0.493 0.622132    
+tagCARO                    -0.0421184  0.0533143  -0.790 0.429527    
+tagCASIMIR-PERRIER         -0.0765629  0.2060245  -0.372 0.710176    
+tagCHAMPAGNE               -0.0054090  0.0572505  -0.094 0.924728    
+tagCHAMPNIERS              -0.0765629  0.2060245  -0.372 0.710176    
+tagCHAPEAU                 -0.0638372  0.0213444  -2.991 0.002783 ** 
+tagCOCQ                    -0.0745502  0.0270698  -2.754 0.005888 ** 
+tagCOMOY                   -0.0663356  0.0440719  -1.505 0.132282    
+tagCOQUEREL                -0.0365086  0.0162683  -2.244 0.024823 *  
+tagCOULOT                  -0.0765629  0.2060245  -0.372 0.710176    
+tagCOUSY                   -0.0359379  0.0729222  -0.493 0.622137    
+tagCOUTURE                 -0.1465629  0.0921959  -1.590 0.111906    
+tagDEFFAIRI-SAISSAC        -0.1203129  0.0516296  -2.330 0.019791 *  
+tagDENIS                   -0.0798107  0.0193972  -4.115 3.88e-05 ***
+tagDERRIEN                  0.0934371  0.1189864   0.785 0.432293    
+tagDESCROZAILLE            -0.0292511  0.0216758  -1.349 0.177185    
+tagDIALLO                  -0.1156254  0.0729222  -1.586 0.112832    
+tagDIEUDONNE               -0.0765629  0.0413628  -1.851 0.064170 .  
+tagDJELLAB                 -0.0765629  0.2060245  -0.372 0.710176    
+tagDJOLEGBEHOU             -0.0765629  0.1457047  -0.525 0.599260    
+tagDOR                     -0.0729354  0.0355189  -2.053 0.040033 *  
+tagDURAND                  -0.0719475  0.0405660  -1.774 0.076132 .  
+tagDUROSSET                -0.0765629  0.1457047  -0.525 0.599260    
+tagEXCELLENT                0.4129332  0.0094100  43.883  < 2e-16 ***
+tagFAUCILLON                0.1165235  0.0398140   2.927 0.003426 ** 
+tagFOREL                   -0.0845629  0.0921959  -0.917 0.359034    
+tagFRANCOIS                 0.0717705  0.0360474   1.991 0.046482 *  
+tagFRONTIGNY               -0.0623962  0.0533143  -1.170 0.241863    
+tagGALLOIS                 -0.2265629  0.0595787  -3.803 0.000143 ***
+tagGARCIA                   0.0579264  0.0264192   2.193 0.028338 *  
+tagGARGASSON               -0.1710073  0.0687627  -2.487 0.012886 *  
+tagGAROYAN                 -0.1183020  0.0431100  -2.744 0.006067 ** 
+tagGENDRE                  -0.1854431  0.0153160 -12.108  < 2e-16 ***
+tagGILIBERT                -0.0646581  0.0551768  -1.172 0.241264    
+tagGIRARD                   0.1061663  0.0233235   4.552 5.32e-06 ***
+tagGRIMAL                   0.4584371  0.0921959   4.972 6.62e-07 ***
+tagGRIMEAU                 -0.1015629  0.2060245  -0.493 0.622038    
+tagGUAINO                   0.0528597  0.0083849   6.304 2.90e-10 ***
+tagHADBI                   -0.0145629  0.0921959  -0.158 0.874492    
+tagHADIZADEH                0.0609371  0.1457047   0.418 0.675784    
+tagHAMARD                  -0.0765629  0.2060245  -0.372 0.710176    
+tagHAMIDI                  -0.0265629  0.1457047  -0.182 0.855342    
+tagHANOTIN                 -0.0059280  0.0451018  -0.131 0.895431    
+tagHAYES                   -0.0765629  0.2060245  -0.372 0.710176    
+tagHEBBRECHT                0.0734371  0.1457047   0.504 0.614252    
+tagHENRY                   -0.0658486  0.0779447  -0.845 0.398217    
+tagJAN                      0.0034371  0.0729222   0.047 0.962406    
+tagJANISSET                 0.4484371  0.0779447   5.753 8.76e-09 ***
+tagJULLIE                  -0.3265629  0.1189864  -2.745 0.006060 ** 
+tagKASPI                   -0.0059107  0.0431100  -0.137 0.890946    
+tagKAUFFER                  0.2134371  0.2060245   1.036 0.300213    
+tagKHAIR                   -0.0765629  0.2060245  -0.372 0.710176    
+tagKHALFI                  -0.0765629  0.0486923  -1.572 0.115864    
+tagKOSCIUSKO-MORIZET       -0.0359337  0.0116560  -3.083 0.002051 ** 
+tagKUJAWSKI                -0.0515629  0.1030617  -0.500 0.616857    
+tagLACASSAGNE              -0.0765629  0.0440719  -1.737 0.082348 .  
+tagLACROUTE                -0.4315629  0.1030617  -4.187 2.82e-05 ***
+tagLAJILI                  -0.0492295  0.0921959  -0.534 0.593365    
+tagLAURENT                 -0.1245426  0.0176748  -7.046 1.84e-12 ***
+tagLECHESNE                -0.0765629  0.1457047  -0.525 0.599260    
+tagLECOQ                    0.0111107  0.0345291   0.322 0.747621    
+tagLEGARET                  0.2734371  0.1457047   1.877 0.060567 .  
+tagLELYS                    0.4234371  0.2060245   2.055 0.039854 *  
+tagLEROUX                  -0.0890629  0.1030617  -0.864 0.387495    
+tagLEROY                    0.0984371  0.0595787   1.652 0.098491 .  
+tagLESAEGE                 -0.1265629  0.0921959  -1.373 0.169828    
+tagLEVEL                   -0.0665506  0.0355189  -1.874 0.060978 .  
+tagLUQUET                  -0.0765629  0.0533143  -1.436 0.150985    
+tagMAILLARD                 0.0728792  0.0270698   2.692 0.007097 ** 
+tagMAMLOUK                 -0.0765629  0.0921959  -0.830 0.406293    
+tagMARCHAL                 -0.0098962  0.0595787  -0.166 0.868076    
+tagMARLIN                  -0.0376740  0.0687627  -0.548 0.583772    
+tagMBAYE                    0.1434371  0.1457047   0.984 0.324902    
+tagMENARD                  -0.1098962  0.1189864  -0.924 0.355694    
+tagMONVILLE                -0.0658486  0.0451018  -1.460 0.144292    
+tagMOULINES                -0.0765629  0.0451018  -1.698 0.089593 .  
+tagMULLER-QUOY              0.0201038  0.2060245   0.098 0.922266    
+tagNINI                    -0.2177295  0.0595787  -3.654 0.000258 ***
+tagNOUAILLE                 0.0148657  0.0779447   0.191 0.848744    
+tagOLIVEIRA                -0.1083811  0.0280193  -3.868 0.000110 ***
+tagOZDEMIR                 -0.0765629  0.2060245  -0.372 0.710176    
+tagPAREJA                  -0.0315629  0.0921959  -0.342 0.732091    
+tagPARIS                    0.0070743  0.0064289   1.100 0.271160    
+tagPEREZ                   -0.0765629  0.0921959  -0.830 0.406293    
+tagPEU                     -0.0291262  0.0061301  -4.751 2.02e-06 ***
+tagPLACE                   -0.0135790  0.0054001  -2.515 0.011919 *  
+tagPLISSIER                 0.1434371  0.2060245   0.696 0.486296    
+tagPOIROT                  -0.0432295  0.1457047  -0.297 0.766701    
+tagPOLI                     0.2984371  0.2060245   1.449 0.147464    
+tagPOLVERELLI              -0.0765629  0.2060245  -0.372 0.710176    
+tagPONIATOWSKI              0.0134371  0.0551768   0.244 0.807596    
+tagPRADIER                  0.0841514  0.0391028   2.152 0.031394 *  
+tagQUESTIAUX               -0.0765629  0.0921959  -0.830 0.406293    
+tagRACT-MADOUX              0.1234371  0.1189864   1.037 0.299548    
+tagRAYMOND                 -0.0708962  0.0533143  -1.330 0.183593    
+tagREMY                    -0.0365629  0.1030617  -0.355 0.722765    
+tagRICHARD                  0.0275915  0.0130223   2.119 0.034109 *  
+tagROSSET                  -0.2015629  0.0595787  -3.383 0.000717 ***
+tagROSSETTINI              -0.0765629  0.1457047  -0.525 0.599260    
+tagROUSSEAU                -0.0809568  0.0256222  -3.160 0.001580 ** 
+tagROUSSEAUX               -0.0887997  0.0336188  -2.641 0.008258 ** 
+tagRUEL-RADIGUE            -0.0765629  0.0779447  -0.982 0.325967    
+tagRUELLAN                  0.6234371  0.2060245   3.026 0.002478 ** 
+tagSABATTIER               -0.0765629  0.2060245  -0.372 0.710176    
+tagSAIB                     0.2609371  0.1457047   1.791 0.073317 .  
+tagSAVATIER                -0.0765629  0.0921959  -0.830 0.406293    
+tagSAVIGNAT                -0.0740629  0.0345291  -2.145 0.031959 *  
+tagSCHILLACI               -0.0765629  0.0841764  -0.910 0.363059    
+tagTAQUET                   0.0795451  0.0360474   2.207 0.027337 *  
+tagTOLLARI                 -0.0456538  0.0622180  -0.734 0.463089    
+tagTORRES                   0.0484371  0.0729222   0.664 0.506544    
+tagTRIGANCE                -0.0032295  0.1189864  -0.027 0.978346    
+tagURGIN                   -0.0453129  0.1030617  -0.440 0.660178    
+tagVALLAUD                  0.0154371  0.0921959   0.167 0.867025    
+tagVALLS                   -0.0152245  0.0045959  -3.313 0.000924 ***
+tagVARIN                   -0.0765629  0.0921959  -0.830 0.406293    
+tagVENTURINI                0.2170934  0.0516296   4.205 2.61e-05 ***
+tagVEZILIER                 0.1034371  0.0921959   1.122 0.261895    
+tagVILLARDIER              -0.3465629  0.0652444  -5.312 1.09e-07 ***
+tagVUILLEMIN               -0.0765629  0.1457047  -0.525 0.599260    
+tagVUILLETET               -0.0765629  0.1457047  -0.525 0.599260    
+tagWILSON                  -0.0647406  0.0164072  -3.946 7.95e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for gaussian family taken to be 0.04243254)
+
+    Null deviance: 9715.2  on 221886  degrees of freedom
+Residual deviance: 9407.6  on 221708  degrees of freedom
+AIC: -71258
+
+Number of Fisher Scoring iterations: 2
