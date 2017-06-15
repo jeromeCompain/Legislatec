@@ -160,6 +160,17 @@ def second_tour (resultats,presents):
 			udi2em=0.6
 			em2em=1
 			lfi2lfi=1
+		elif presents==["EM","PCF"]:
+			ps2pcf=0.6
+			eelv2pcf=0.6
+			fn2pcf=0.05
+			pcf2pcf=1
+			ps2em=0.35
+			eelv2em=0.35
+			lr2em=0.6
+			udi2em=0.6
+			em2em=1
+			lfi2pcf=0.95
 		elif presents==["FN","LR"]:
 			em2lr=0.8
 			ps2lr=0.6
@@ -210,6 +221,18 @@ def second_tour (resultats,presents):
 			udi2lfi=0.15
 			fn2fn=1
 			lfi2lfi=1
+		elif presents==["FN","PCF"]:
+			pcf2pcf=1
+			ps2pcf=0.95
+			eelv2pcf=0.95
+			em2pcf=0.65
+			dlf2fn=0.5
+			lr2fn=0.35
+			udi2fn=0.35
+			lr2pcf=0.15
+			udi2pcf=0.15
+			fn2fn=1
+			lfi2pcf=1
 		elif presents==["FN","PS"]:
 			pcf2ps=0.95
 			lfi2ps=0.95
@@ -222,6 +245,18 @@ def second_tour (resultats,presents):
 			udi2ps=0.15
 			fn2fn=1
 			ps2ps=1
+		elif presents==["EELV","FN"]:
+			pcf2eelv=0.95
+			lfi2eelv=0.95
+			eelv2eelv=1
+			em2eelv=0.65
+			dlf2fn=0.5
+			lr2fn=0.35
+			udi2fn=0.35
+			lr2eelv=0.15
+			udi2eelv=0.15
+			fn2fn=1
+			ps2eelv=1
 		elif presents==["LR","PS"]:
 			eelv2ps=0.9
 			lfi2ps=0.7
@@ -254,6 +289,27 @@ def second_tour (resultats,presents):
 			em2lr=0.35
 			udi2lr=0.9
 			lr2lr=1
+			eelv2eelv=1
+		elif presents==["EELV","EM"]:
+			ps2eelv=0.9
+			lfi2eelv=0.7
+			pcf2eelv=0.7
+			em2eelv=0.55
+			dlf2em=0.4
+			fn2em=0.3
+			em2em=1
+			udi2em=0.9
+			lr2em=0.8
+			eelv2eelv=1
+		elif presents==["EELV","LFI"]:
+			ps2eelv=0.5
+			pcf2eelv=0.2
+			em2eelv=0.7
+			fn2lfi=0.1
+			udi2eelv=0.1
+			lfi2lfi=1
+			pcf2lfi=0.8
+			ps2lfi=0.3
 			eelv2eelv=1
 		elif presents==["FN","LR","PS"]:
 			em2ps=0.6
@@ -608,4 +664,96 @@ for couleur in couleurs:
 	total+=sieges[couleur]
 victors_csv.write("total;"+str(total))
 victors_csv.close()
+
+
+
+
+
+
+
+pred_t2={}
+victors={}
+for code in circos_restreintes :
+#for code in ["75_18"] :
+	victors[code]={}
+	presents=qualifies_reel[code]
+	presents.sort()
+#	if code=="75_18":
+#		print(presents)
+	pred_t2[code]=second_tour(reel_t1[code],presents)
+#	print(pred_t2[code])
+#	print(pred_t2[code])
+	pred_t2[code]["Inscrits"]=int(reel_t1[code]["Inscrits"])
+	exprimes=0
+	for couleur in couleurs:
+		exprimes+=pred_t2[code][couleur]
+	pred_t2[code]["Exprimés"]=exprimes
+	pred_t2[code]["%_Exp/Ins"]=round(100.0*reel_t1[code]["Exprimés"]/pred_t2[code]["Inscrits"],2)
+	max_score=0
+	victor=0
+	for couleur in couleurs:
+		resultat=pred_t2[code][couleur]
+		pred_t2[code][couleur]={}
+		pred_t2[code][couleur]["nom"]=candidats_colores_par_circo[code][couleur]
+		pred_t2[code][couleur]["voix"]=resultat
+		pred_t2[code][couleur]["%_Voix/Ins"]=round(100.0*pred_t2[code][couleur]["voix"]/pred_t2[code]["Inscrits"],2)
+		pred_t2[code][couleur]["%_Voix/Exp"]=round(100.0*pred_t2[code][couleur]["voix"]/pred_t2[code]["Exprimés"],2)
+		if pred_t2[code][couleur]["voix"]>max_score:
+			max_score=pred_t2[code][couleur]["voix"]
+			victor=couleur
+	victors[code]["Couleur"]=victor
+	victors[code]["Nom"]=pred_t2[code][victor]["nom"]
+	if len(qualifies_reel[code])==1:
+		victors[code]["tour"]="1er tour"
+	else:
+		victors[code]["tour"]="2nd tour"
+	victors[code]["%_Voix/Ins_t2"]=pred_t2[code][victor]["%_Voix/Ins"]
+	victors[code]["%_Voix/Ins_t1"]=reel_t1[code][victor]["%_Voix/Ins"]
+
+clean_csv=open("pred_t2_reel.csv","w")
+clean_csv.write(";".join(clean_headers)+"\n")
+for code in circos_restreintes :
+#for code in ["75_18"] :
+	valeurs=[code,str(pred_t2[code]["Inscrits"]),str(pred_t2[code]["Exprimés"]),str(pred_t2[code]["%_Exp/Ins"])]
+	for couleur in couleurs:
+		valeurs.extend([pred_t2[code][couleur]["nom"],str(pred_t2[code][couleur]["voix"]),str(pred_t2[code][couleur]["%_Voix/Ins"]),str(pred_t2[code][couleur]["%_Voix/Exp"])])
+	clean_csv.write(";".join(valeurs)+"\n")
+
+clean_csv.close()
+
+clean_headers=["circo","Inscrits","Exprimés","%_Exp/Ins","Couleur","nom","Voix","%_Voix/Ins","%_Voix/Exp"]
+clean_csv=open("pred_t2_2017_portrait_reel.csv","w")
+clean_csv.write(";".join(clean_headers)+"\n")
+for code in circos_restreintes :
+#for code in ["75_18"] :
+	for couleur in couleurs:
+		valeurs=[code,str(pred_t2[code]["Inscrits"]),str(pred_t2[code]["Exprimés"]),str(pred_t2[code]["%_Exp/Ins"]),couleur,pred_t2[code][couleur]["nom"],str(pred_t2[code][couleur]["voix"]),str(pred_t2[code][couleur]["%_Voix/Ins"]),str(pred_t2[code][couleur]["%_Voix/Exp"])]
+		clean_csv.write(";".join(valeurs)+"\n")
+clean_csv.close()
+
+
+victors_csv=open("victors_2017_from_t1reel.csv","w")
+victors_csv.write("circo;Couleur;Nom;Round;%_Voix/Ins_2nd_tour;%_Voix/Ins_1er_tour\n")
+for code in circos_restreintes:
+	victors_csv.write(code+";"+victors[code]["Couleur"]+";"
+	+victors[code]["Nom"]+";"+victors[code]["tour"]+";"+str(victors[code]["%_Voix/Ins_t2"])+";"+str(victors[code]["%_Voix/Ins_t1"])+"\n")
+
+sieges={}
+for couleur in couleurs:
+	sieges[couleur]=0
+
+for code in circos_restreintes:
+	for couleur in couleurs:
+		if victors[code]["Couleur"]==couleur:
+			sieges[couleur]+=1
+
+victors_csv.write("\n\nComposition Assemblée\n")
+for couleur in couleurs:
+	victors_csv.write(couleur+";"+str(sieges[couleur])+"\n")
+total=0
+for couleur in couleurs:
+	total+=sieges[couleur]
+victors_csv.write("total;"+str(total))
+victors_csv.close()
+
 
